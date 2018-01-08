@@ -18,4 +18,5 @@ if __name__ == '__main__':
     logging.basicConfig(level='INFO', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     while True:
         start_simple_task()
+        # TODO: put timer value in args  so that we can play from docker launching
         time.sleep(0.1)

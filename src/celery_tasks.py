@@ -12,6 +12,7 @@ logger = get_task_logger(__name__)
 def add(x, y):
     return x + y
 
+# TODO: implement a class based style task
 
 class MyTask(Task):
     def on_failure(self, exc, task_id, args, kwargs, einfo):
