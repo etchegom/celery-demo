@@ -24,35 +24,19 @@ task_ignore_result = True
 timezone = 'Europe/Paris'
 enable_utc = True
 
+task_default_queue = 'default'
+task_queues = (
+    Queue('queue1', routing_key='queue1'),
+    Queue('queue2', routing_key='queue1'),
+)
 
-# TODO: implement routing example
-
-# default_exchange = Exchange('default', type='direct')
-# media_exchange = Exchange('media', type='direct')
-#
-# task_default_queue = 'default'
-# task_default_exchange_type = 'direct'
-# task_default_routing_key = 'default'
-#
-# task_queues = (
-#     Queue('default', Exchange('default'), routing_key='default'),
-#     Queue('videos',  Exchange('media'),   routing_key='media.video'),
-#     Queue('images',  Exchange('media'),   routing_key='media.image'),
-# )
-# CELERY_QUEUES = (
-#     Queue('media', [
-#         binding(media_exchange, routing_key='media.video'),
-#         binding(media_exchange, routing_key='media.image'),
-#     ]),
-# )
-#
-# task_routes = {
-#     'celery.ping': 'default',
-#     'celery_tasks.add': 'cpu-bound',
-#     'video.encode': {
-#         'queue': 'video',
-#         'exchange': 'media'
-#         'routing_key': 'media.video.encode',
-#     },
-# }
-
+task_routes = {
+    'celery_tasks.add': {
+        'queue': 'queue1',
+        'routing_key': 'queue1'
+    },
+    'celery_tasks.multiply': {
+        'queue': 'queue2',
+        'routing_key': 'queue1'
+    }
+}

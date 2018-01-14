@@ -6,12 +6,27 @@ services:
     volumes:
       - broker_data:/data
 
-  worker:
+  worker_a:
     build: worker
     volumes:
       - ./src:/app
-    env_file:
-      - .env
+    environment:
+      - WORKER_CONCURRENCY=2
+      - WORKER_LOGLEVEL=info
+      - WORKER_NAME=my_worker
+      - WORKER_QUEUE=queue1
+    depends_on:
+      - broker
+
+  worker_b:
+    build: worker
+    volumes:
+      - ./src:/app
+    environment:
+      - WORKER_CONCURRENCY=2
+      - WORKER_LOGLEVEL=info
+      - WORKER_NAME=my_worker
+      - WORKER_QUEUE=queue2
     depends_on:
       - broker
 

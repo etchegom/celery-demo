@@ -3,11 +3,8 @@
 celery -A celery_tasks worker \
     --loglevel=${WORKER_LOGLEVEL} \
     --concurrency=${WORKER_CONCURRENCY} \
-    --purge \
+    -Q ${WORKER_QUEUE}
     $*
 
 #    --autoscale=10,2 \
 #    -n ${WORKER_NAME} \
-
-# TODO: implment rooting task demo
-#-Q ${QUEUE}

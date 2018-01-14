@@ -14,14 +14,8 @@ http://docs.celeryproject.org/en/latest/index.html
 
 Run the full stack
 ```
-docker-compose up -d --build
+docker-compose up --scale worker_a=3 --scale worker_b=5 -d --build
 ```
 
 Check results through the monitoring view:
 http://localhost:5555
-
-
-Add new workers so that tasks number decrease
-```
-docker-compose scale worker=5
-```
