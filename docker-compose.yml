@@ -15,6 +15,7 @@ services:
     - WORKER_LOGLEVEL=info
     - WORKER_NAME=my_worker
     - WORKER_QUEUE=queue1
+    - WORKER_EXTRA_OPTION=extra_a
     depends_on:
     - broker
 
@@ -27,11 +28,14 @@ services:
     - WORKER_LOGLEVEL=info
     - WORKER_NAME=my_worker
     - WORKER_QUEUE=queue2
+    - WORKER_EXTRA_OPTION=extra_b
     depends_on:
     - broker
 
   stresser:
     build: stresser
+    environment:
+    - TIMER=5000
     volumes:
     - ./src:/app
     depends_on:

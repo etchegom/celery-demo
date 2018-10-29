@@ -1,6 +1,6 @@
 # coding=utf-8
 
-
+import os
 import time
 import logging
 from celery_tasks import add, multiply
@@ -21,8 +21,9 @@ def start_multiply_task():
 
 if __name__ == '__main__':
     logging.basicConfig(level='INFO', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+    timer = int(os.getenv('TIMER', '100')) / 1000
     while True:
         start_add_task()
         start_multiply_task()
-        # TODO: put timer value in args so that we can play from docker launching
-        time.sleep(0.1)
+        time.sleep(timer)
