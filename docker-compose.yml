@@ -4,47 +4,47 @@ services:
   broker:
     image: redis:alpine
     volumes:
-      - broker_data:/data
+    - broker_data:/data
 
   worker_a:
     build: worker
     volumes:
-      - ./src:/app
+    - ./src:/app
     environment:
-      - WORKER_CONCURRENCY=2
-      - WORKER_LOGLEVEL=info
-      - WORKER_NAME=my_worker
-      - WORKER_QUEUE=queue1
+    - WORKER_CONCURRENCY=2
+    - WORKER_LOGLEVEL=info
+    - WORKER_NAME=my_worker
+    - WORKER_QUEUE=queue1
     depends_on:
-      - broker
+    - broker
 
   worker_b:
     build: worker
     volumes:
-      - ./src:/app
+    - ./src:/app
     environment:
-      - WORKER_CONCURRENCY=2
-      - WORKER_LOGLEVEL=info
-      - WORKER_NAME=my_worker
-      - WORKER_QUEUE=queue2
+    - WORKER_CONCURRENCY=2
+    - WORKER_LOGLEVEL=info
+    - WORKER_NAME=my_worker
+    - WORKER_QUEUE=queue2
     depends_on:
-      - broker
+    - broker
 
   stresser:
     build: stresser
     volumes:
-      - ./src:/app
+    - ./src:/app
     depends_on:
-      - broker
+    - broker
 
   supervisor:
     build: supervisor
     volumes:
-      - ./src:/app
+    - ./src:/app
     depends_on:
-      - broker
+    - broker
     ports:
-      - 5555:5555
+    - 5555:5555
 
 volumes:
   broker_data:
